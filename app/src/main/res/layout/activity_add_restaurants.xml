@@ -7,17 +7,14 @@
     tools:context=".add_restaurants">
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/head"
+        style="@style/head"
+
         android:layout_marginTop="28dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/heading" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
@@ -28,63 +25,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/head"
         android:text="Add Restaurant" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/addResText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:inputType="text"
-        android:id="@+id/editText7"
+        android:id="@+id/addResAddr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:hint="Address"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
+        android:hint="@string/addr"
+        app:layout_constraintTop_toBottomOf="@+id/addResDesc"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:inputType="text"
-        android:id="@+id/editText6"
+        android:id="@+id/addResDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:hint="Description"
-        app:layout_constraintTop_toBottomOf="@+id/editText5"
+        android:hint="@string/desc"
+        app:layout_constraintTop_toBottomOf="@+id/addResTag"
         tools:layout_editor_absoluteX="-16dp" />
 
     <EditText
         android:inputType="text"
-        android:id="@+id/editText5"
+        android:id="@+id/addResTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Tags"
+        android:hint="@string/tag"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4"
+        app:layout_constraintTop_toBottomOf="@+id/addResText"
          />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:background="#2196F3"
+        android:id="@+id/addResButton"
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        style="@style/Button"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText7"
+        app:layout_constraintTop_toBottomOf="@+id/addResAddr"
         tools:text="Submit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

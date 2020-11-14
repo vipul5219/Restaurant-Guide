@@ -8,15 +8,12 @@
 
     <TextView
 
-        android:id="@+id/textView9"
-        android:layout_width="353dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/heading"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
+        android:id="@+id/head"
+        style="@style/head"
+
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/head" />
 
     <TextView
         android:id="@+id/namelbl"
@@ -77,53 +74,40 @@
 
     <Button
         android:id="@+id/mapBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="32dp"
-        android:background="#2196F3"
         android:text="@string/map"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/removeBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/editBtn"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <Button
         android:id="@+id/rateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
-        android:background="#2196F3"
+
         android:text="@string/rate"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FBFBFB"
-        android:textStyle="bold"
+
         app:layout_constraintBottom_toTopOf="@+id/shareBtn"
         app:layout_constraintEnd_toStartOf="@+id/editBtn"
-        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintVertical_bias="0.582" />
 
     <Button
         android:id="@+id/editBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
-        android:layout_marginRight="144dp"
+        style="@style/Button"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
         android:layout_marginBottom="20dp"
-        android:background="#2196F3"
         android:text="@string/edit"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/shareBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
@@ -131,14 +115,8 @@
 
     <Button
         android:id="@+id/shareBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="#2196F3"
-        android:text="@string/share"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        style="@style/Button"
+        android:layout_marginBottom="24dp"        android:text="@string/share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/removeBtn"
         app:layout_constraintHorizontal_bias="0.629"
@@ -146,15 +124,11 @@
 
     <Button
         android:id="@+id/removeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button"
         android:layout_marginEnd="96dp"
         android:layout_marginRight="96dp"
         android:layout_marginBottom="24dp"
-        android:background="#2196F3"
         android:text="@string/remove"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
