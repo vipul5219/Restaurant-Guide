@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Restaurant Guide</string>
+    <string name="heading">Personal Restaurant Guide</string>
+    <string name="name">Name</string>
+    <string name="addr">Address</string>
+    <string name="desc">Description</string>
+    <string name="tag">Tags</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="rate">Rate</string>
+    <string name="map">Map</string>
+    <string name="remove">Remove</string>
 </resources>
