@@ -23,9 +23,9 @@ public class add_restaurants extends AppCompatActivity {
             addResBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RestaurantDatabase db = new RestaurantDatabase(addResText.getText().toString(),addResDesc.getText().toString(), addResTag.getText().toString(), addResAddr.getText().toString());
-                    Toast.makeText(add_restaurants.this,db.toString(),Toast.LENGTH_SHORT).show();
-
+                    RestaurantDatabase rdb = new RestaurantDatabase(addResText.getText().toString(),addResDesc.getText().toString(), addResTag.getText().toString(), addResAddr.getText().toString());
+                    DatabaseHelper dbh = new DatabaseHelper(add_restaurants.this);
+                    dbh.addOne(rdb);
                 }
             });
     }

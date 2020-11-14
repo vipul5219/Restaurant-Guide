@@ -2,19 +2,20 @@ package ca.mobile.restaurantguide;
 
 public class RestaurantDatabase {
     private String resName;
-    private int id=0;
+    private int id;
     private String description;
     private String tags;
     private float rating;
     private  String address;
     public RestaurantDatabase(String resName, String description, String tags,String address) {
         this.resName = resName;
-        this.id++;
+
         this.description = description;
         this.tags = tags;
         this.address=address;
 
     }
+
 
     public String getResName() {
         return resName;
