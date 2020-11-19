@@ -1,53 +1,59 @@
 package ca.mobile.restaurantguide;
 
 public class RestaurantDatabase {
-    private String resName;
-    private int id;
-    private String description;
-    private String tags;
-    private float rating;
-    private  String address;
-    public RestaurantDatabase(String resName, String description, String tags,String address) {
-        this.resName = resName;
+    String name,description,address,tags;
+    Double rating;
 
+    public RestaurantDatabase(String name, String description, String address, String tags, Double rating) {
+        this.name = name;
         this.description = description;
+        this.address = address;
         this.tags = tags;
-        this.address=address;
-
+        this.rating = rating;
     }
 
-
-    public String getResName() {
-        return resName;
+    public String getName() {
+        return name;
     }
 
-    public int getId() {
-        return id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public float getRating() {
-        return rating;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAddress() {
         return address;
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantDatabase{" +
-                "resName='" + resName + '\'' +
-                ", description='" + description + '\'' +
-                ", tags='" + tags + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
 }
+
+
+
+

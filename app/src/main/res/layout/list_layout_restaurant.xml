@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:text="REDS"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gerrad"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Non-veg"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/textViewTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:text="Good Service" />
+
+        <TextView
+            android:id="@+id/textViewRating"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+
+            android:layout_marginTop="8dp"
+            android:text="5" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonEditRestaurant"
+            android:layout_width="165dp"
+            android:layout_height="31dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/background_light"
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/buttonDeleteRestaurant"
+            android:layout_width="166dp"
+            android:layout_height="28dp"
+            android:layout_margin="5dp"
+            android:background="@color/colorAccent"
+            android:text="Delete" />
+
+        <Button
+            android:id="@+id/buttonShareRestaurant"
+            android:layout_width="166dp"
+            android:layout_height="26dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/background_light"
+            android:text="Share" />
+
+        <Button
+            android:id="@+id/buttonMapRestaurant"
+            android:layout_width="166dp"
+            android:layout_height="26dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/background_light"
+            android:text="Map" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
