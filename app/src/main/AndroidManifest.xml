@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RestaurantActivity"></activity>
-        <activity android:name=".About" />
+        <activity android:name=".About" android:parentActivityName=".MainActivity" />
         <activity android:name=".Share" />
         <activity android:name=".Map" />
         <activity android:name=".EditRestaurant" />

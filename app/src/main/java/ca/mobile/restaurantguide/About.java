@@ -13,13 +13,13 @@ TextView textViewName1,textViewName2,textViewName3,textViewName4;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         textViewName1 = (TextView)findViewById(R.id.devarshi);
-        textViewName1.setText("Devarshi:101203070");
+        textViewName1.setText("Devarshi Sagar:101203070");
         textViewName2 = (TextView)findViewById(R.id.saba);
-        textViewName2.setText("Saba:101223478");
+        textViewName2.setText("Fahima Chowdhury:101185665");
         textViewName3 = (TextView)findViewById(R.id.fahima);
-        textViewName3.setText("Fahima:101185665");
+        textViewName3.setText("Saba Negatu:101223478");
         textViewName3 = (TextView)findViewById(R.id.vipul);
-        textViewName3.setText("Vipul:101206944");
+        textViewName3.setText("Vipulkumar Chaudhari:101206944");
 
 
 
