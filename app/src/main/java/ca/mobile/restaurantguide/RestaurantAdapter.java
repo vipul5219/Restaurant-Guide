@@ -1,6 +1,7 @@
 package ca.mobile.restaurantguide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> implements View.OnClickListener
+public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase>
 {
 
     Context mCtx;
@@ -61,11 +62,35 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> implemen
         Button buttonShare = view.findViewById(R.id.buttonShareRestaurant);
         Button buttonMap = view.findViewById(R.id.buttonMapRestaurant);
 
-        return view;
-    }
-    @Override
-    public void onClick(View v) {
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mCtx,EditRestaurant.class);
+                mCtx.startActivity(myIntent);
 
+            }
+        });
+
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mCtx,Map.class);
+                mCtx.startActivity(myIntent);
+
+            }
+        });
+
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mCtx,Share.class);
+                mCtx.startActivity(myIntent);
+
+
+            }
+        });
+
+        return view;
     }
 
 }
