@@ -41,11 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.buttonAddRestaurant).setOnClickListener(this);
         textViewRestaurants.setOnClickListener(this);
 
-
         mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         createRestaurantTable();
     }
-
 
     private void createRestaurantTable() {
 
@@ -61,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
     }
 
-    private boolean inputsAreCorrect(String name, String address, String description, String tags, String rating) {
-        if (name.isEmpty()|| address.isEmpty() || description.isEmpty()|| tags.isEmpty()|| rating.isEmpty()||Double.parseDouble(rating)<0) {
-           Toast.makeText(this,"Please Enter Values",Toast.LENGTH_LONG).show();
+    private boolean inputsAreCorrect(String name, String address, String description, String tags, Double rating) {
+        if (name.isEmpty()|| address.isEmpty() || description.isEmpty()|| tags.isEmpty()||rating>5)
+        {
+            Toast.makeText(this,"Please Enter Values or ratingd can't be more than 5!!!!",Toast.LENGTH_LONG).show();
             return false;
         }
-
         return true;
     }
     private void addRestaurant() {
@@ -75,7 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String address = editTextAddress.getText().toString().trim();
         String description = editTextDescription.getText().toString();
         String tags = editTextTag.getText().toString();
-        String ratings = editTextRating.getText().toString();
+        Double ratings;
+        try {
+             ratings = Double.parseDouble(editTextRating.getText().toString());
+        } catch (NumberFormatException e) {
+            ratings = 0.0; // your default value
+        }
+
 
 
         //validating the inputs
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "(?, ?, ?, ?, ?);";
 
             //first is the sql string and second is the parameters that is to be binded with the query
-            mDatabase.execSQL(insertSQL, new String[]{name, address, description, tags, ratings});
+            mDatabase.execSQL(insertSQL, new String[]{name, address, description, tags, String.valueOf(ratings)});
 
             Toast.makeText(this, "Restaurant Added Successfully", Toast.LENGTH_SHORT).show();
             editTextName.setText("");
