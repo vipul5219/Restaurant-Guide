@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createRestaurantTable() {
 
-
-
         mDatabase.execSQL(
                 "CREATE TABLE IF NOT EXISTS TABLE_NAME (\n" +
                         "    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"+
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean inputsAreCorrect(String name, String address, String description, String tags, Double rating) {
         if (name.isEmpty()|| address.isEmpty() || description.isEmpty()|| tags.isEmpty()||rating>5)
         {
-            Toast.makeText(this,"Please Enter Values or ratingd can't be more than 5!!!!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Please Enter Values or rating can't be more than 5!!!!",Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

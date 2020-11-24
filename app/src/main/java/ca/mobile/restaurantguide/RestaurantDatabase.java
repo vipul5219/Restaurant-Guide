@@ -5,7 +5,7 @@ public class RestaurantDatabase {
     String name,description,address,tags;
     Double rating;
 
-    public RestaurantDatabase(int id,String name, String description, String address, String tags, Double rating) {
+    public RestaurantDatabase(int id,String name, String address, String description, String tags, Double rating) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,6 +37,9 @@ public class RestaurantDatabase {
     public Double getRating() {
         return rating;
     }
+
+
+
 }
 
 

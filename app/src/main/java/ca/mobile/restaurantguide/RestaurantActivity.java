@@ -62,4 +62,5 @@ public class RestaurantActivity extends AppCompatActivity {
         //adding the adapter to listview
         listViewRestaurant.setAdapter(adapter);
     }
+
 }
