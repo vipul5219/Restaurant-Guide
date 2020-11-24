@@ -42,13 +42,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewRestaurants.setOnClickListener(this);
 
         mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+        //mDatabase.execSQL("DROP TABLE IF EXISTS TABLE_NAME");
         createRestaurantTable();
     }
 
     private void createRestaurantTable() {
 
+
+
         mDatabase.execSQL(
                 "CREATE TABLE IF NOT EXISTS TABLE_NAME (\n" +
+                        "    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"+
                         "    name varchar(200) NOT NULL,\n" +
                         "    address varchar(200) NOT NULL,\n" +
                         "    description varchar(200) NOT NULL,\n" +
@@ -79,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (NumberFormatException e) {
             ratings = 0.0; // your default value
         }
-
-
 
         //validating the inputs
         if(inputsAreCorrect(name,address,description,tags,ratings)) {

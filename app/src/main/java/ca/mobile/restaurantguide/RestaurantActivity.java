@@ -38,19 +38,18 @@ public class RestaurantActivity extends AppCompatActivity {
         //we used rawQuery(sql, selectionargs) for fetching all the employees
         Cursor cursorRestaurants = mDatabase.rawQuery("SELECT * FROM TABLE_NAME", null);
 
-
-
         //if the cursor has some data
         if (cursorRestaurants.moveToFirst()) {
             //looping through all the records
             do {
                 //pushing each record in the employee list
                 restaurantList.add(new RestaurantDatabase(
-                        cursorRestaurants.getString(0),
+                        cursorRestaurants.getInt(0),
                         cursorRestaurants.getString(1),
                         cursorRestaurants.getString(2),
                         cursorRestaurants.getString(3),
-                        cursorRestaurants.getDouble(4)
+                        cursorRestaurants.getString(4),
+                        cursorRestaurants.getDouble(5)
                 ));
             } while (cursorRestaurants.moveToNext());
         }
