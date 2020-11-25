@@ -38,11 +38,6 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
         this.mDatabase = mDatabase;
     }
 
-    public SQLiteDatabase getWritableDatabase()
-    {
-        return null;
-    }
-
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(listLayoutRes, null);
@@ -121,6 +116,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
                 final AlertDialog dialog = builder.create();
                 dialog.show();
 
+
                 view.findViewById(R.id.buttonUpdateRestaurant).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -134,30 +130,23 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
                         } catch (NumberFormatException e) {
                             rating = 0.0; // your default value
                         }
-                        //mDatabase = getWritableDatabase();
 
 
-                        ContentValues values = new ContentValues();
-                        values.put(restaurant.name,name);
-                        values.put(restaurant.address,address);
-                        values.put(restaurant.description,description);
-                        values.put(restaurant.tags,tags);
-                        values.put(String.valueOf(restaurant.rating),rating);
+                        if(inputsAreCorrect(name,address,description,tags,rating)) {
+                            String sql = "UPDATE TABLE_NAME \n" +
+                                    "SET name = ?, \n" +
+                                    "description = ?, \n" +
+                                    "address = ?, \n" +
+                                    "tags = ?, \n" +
+                                    "ratings = ? \n" +
+                                    "WHERE id = ?;\n";
 
-                        String sql = "UPDATE TABLE_NAME \n" +
-                                "SET name = ?, \n" +
-                                "description = ?, \n" +
-                                "address = ?, \n" +
-                                "tags = ?, \n" +
-                                "rating = ? \n" +
-                                "WHERE id = ?;\n";
-
-                        mDatabase.update(TABLE_NAME,values,"id=?",new String[]{String.valueOf(restaurant.getId())});
-                        //mDatabase.execSQL(sql, new String[]{name, description, address, tags, String.valueOf(rating), String.valueOf(restaurant.getId())});
-                        Toast.makeText(mCtx, "Restaurant Updated", Toast.LENGTH_SHORT).show();
-                        reloadRestaurantFromDatabase();
-
-                        dialog.dismiss();
+                            // mDatabase.update(TABLE_NAME,values,"id=?",new String[]{String.valueOf(restaurant.getId())});
+                            mDatabase.execSQL(sql, new String[]{name, description, address, tags, String.valueOf(rating), String.valueOf(restaurant.getId())});
+                            Toast.makeText(mCtx, "Restaurant Updated", Toast.LENGTH_SHORT).show();
+                            reloadRestaurantFromDatabase();
+                            dialog.dismiss();
+                        }
                     }
 
                 });
@@ -172,6 +161,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(mCtx,EditRestaurant.class);
+                myIntent.putExtra("Id",String.valueOf(restaurant.getId()));
                 myIntent.putExtra("Name",String.valueOf(restaurant.getName()));
                 myIntent.putExtra("Address",String.valueOf(restaurant.getAddress()));
                 myIntent.putExtra("Desc",String.valueOf(restaurant.getDescription()));
@@ -183,8 +173,8 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
 
             }
         });
+*/
 
- */
 
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,70 +197,19 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
     }
 
     private boolean inputsAreCorrect(String name, String address, String description, String tags, Double rating) {
-        if (name.isEmpty() || address.isEmpty() || description.isEmpty() || tags.isEmpty() || rating.isNaN() || rating > 5) {
-            Toast.makeText(mCtx, "Please Enter Values or rating can't be more than 5!!!!", Toast.LENGTH_LONG).show();
+        if (name.isEmpty() || address.isEmpty() || description.isEmpty() || tags.isEmpty()) {
+            Toast.makeText(mCtx, "Please Enter Values!!!!", Toast.LENGTH_LONG).show();
             return false;
         }
-        return true;
-    }
-
-    private void updateRestaurant(final RestaurantDatabase res) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
-
-        LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.update_restaurant, null);
-        builder.setView(view);
-
-
-        final EditText editName = view.findViewById(R.id.editName);
-        final EditText editDesc = view.findViewById(R.id.editDesc);
-        final EditText editAddress = view.findViewById(R.id.editAddress);
-        final EditText editTag = view.findViewById(R.id.editTags);
-        final EditText editRatings = view.findViewById(R.id.editRating);
-
-
-        editName.setText(res.getName());
-        editAddress.setText(res.getAddress());
-        editDesc.setText(res.getDescription());
-        editTag.setText(res.getTags());
-        editRatings.setText(String.valueOf(res.getRating()));
-
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        view.findViewById(R.id.buttonUpdateRestaurant).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = editName.getText().toString().trim();
-                String address = editAddress.getText().toString().trim();
-                String description = editDesc.getText().toString().trim();
-                String tags = editTag.getText().toString().trim();
-                Double rating;
-                try {
-                    rating = Double.parseDouble(editRatings.getText().toString());
-                } catch (NumberFormatException e) {
-                    rating = 0.0; // your default value
-                }
-
-
-                    String sql = "UPDATE TABLE_NAME \n" +
-                            "SET name = ?, \n" +
-                            "description = ?, \n" +
-                            "address = ?, \n" +
-                            "tags = ?, \n" +
-                            "rating = ? \n" +
-                            "WHERE id = ?;\n";
-
-                    mDatabase.execSQL(sql, new String[]{name, description, address, tags, String.valueOf(rating), String.valueOf(res.getId())});
-                    Toast.makeText(mCtx, "Restaurant Updated", Toast.LENGTH_SHORT).show();
-                    reloadRestaurantFromDatabase();
-
-                    dialog.dismiss();
-                }
-
-        });
-
-
+         else if( rating > 5)
+         {
+             Toast.makeText(mCtx, "Rating can't be more than 5!!!!", Toast.LENGTH_LONG).show();
+             return false;
+         }
+          else
+              {
+            return true;
+        }
     }
 
 

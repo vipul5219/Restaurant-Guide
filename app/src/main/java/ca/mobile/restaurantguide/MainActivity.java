@@ -65,12 +65,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean inputsAreCorrect(String name, String address, String description, String tags, Double rating) {
-        if (name.isEmpty()|| address.isEmpty() || description.isEmpty()|| tags.isEmpty()||rating>5)
-        {
-            Toast.makeText(this,"Please Enter Values or rating can't be more than 5!!!!",Toast.LENGTH_LONG).show();
+        if (name.isEmpty() || address.isEmpty() || description.isEmpty() || tags.isEmpty()) {
+            Toast.makeText(this, "Please Enter Values!!!!", Toast.LENGTH_LONG).show();
             return false;
         }
-        return true;
+        else if( rating > 5)
+        {
+            Toast.makeText(this, "Rating can't be more than 5!!!!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
     private void addRestaurant() {
 
