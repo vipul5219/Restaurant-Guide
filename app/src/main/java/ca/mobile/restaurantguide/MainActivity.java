@@ -1,9 +1,11 @@
 package ca.mobile.restaurantguide;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText editTextName, editTextAddress, editTextDescription, editTextTag,editTextRating;
 
     SQLiteDatabase mDatabase;
+
 
 
     @Override
