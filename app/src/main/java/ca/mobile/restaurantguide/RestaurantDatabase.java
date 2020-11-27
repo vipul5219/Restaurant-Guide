@@ -30,6 +30,17 @@ public class RestaurantDatabase {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "RestaurantDatabase{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", tags='" + tags + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
+
     public String getTags() {
         return tags;
     }

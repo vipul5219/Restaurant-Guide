@@ -189,6 +189,14 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(mCtx, Share.class);
+                String Desc,addrs,name;
+                Desc  = restaurant.getDescription();
+                addrs = restaurant.getAddress();
+                name = restaurant.getName();
+                myIntent.putExtra("resDetails",Desc);
+                myIntent.putExtra("name",name);
+
+                myIntent.putExtra("resAddrs",addrs);
                 mCtx.startActivity(myIntent);
             }
         });
