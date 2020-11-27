@@ -190,12 +190,14 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
             public void onClick(View v) {
                 Intent myIntent = new Intent(mCtx, Share.class);
                 String Desc,addrs,name;
+                String rate;
                 Desc  = restaurant.getDescription();
                 addrs = restaurant.getAddress();
                 name = restaurant.getName();
+                rate = String.valueOf(restaurant.getRating());
                 myIntent.putExtra("resDetails",Desc);
                 myIntent.putExtra("name",name);
-
+                myIntent.putExtra("rate",rate);
                 myIntent.putExtra("resAddrs",addrs);
                 mCtx.startActivity(myIntent);
             }

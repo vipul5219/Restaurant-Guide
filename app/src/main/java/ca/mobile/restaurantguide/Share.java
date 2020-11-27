@@ -27,6 +27,8 @@ public class Share extends AppCompatActivity {
         final String str = intent.getStringExtra("resDetails");
         final String addr = intent.getStringExtra("resAddrs");
         final String name = intent.getStringExtra("name");
+       final String rate = intent.getStringExtra("rate");
+
         shareCaption.setText(str);
         shareAddress.setText(addr);
         shareName.setText(name);
@@ -38,7 +40,7 @@ public class Share extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_SEND);
 
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, name+addr+str);
+                intent.putExtra(Intent.EXTRA_TEXT, name+"\n"+addr+"\n"+str+"\n"+rate);
                 startActivity(Intent.createChooser(intent, "Share"));
 
             }
