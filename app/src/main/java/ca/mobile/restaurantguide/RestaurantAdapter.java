@@ -150,8 +150,6 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
                     }
 
                 });
-
-
             }
         });
 
