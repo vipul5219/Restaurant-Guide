@@ -5,6 +5,15 @@ public class RestaurantDatabase {
     String name,description,address,tags;
     Double rating;
 
+
+    public RestaurantDatabase copyRestaurantDatabase(RestaurantDatabase res) {
+
+        RestaurantDatabase newObj = new RestaurantDatabase(res.id,res.name,res.address,res.description,res.tags,res.rating);
+    return newObj;
+    }
+
+    public RestaurantDatabase(){}
+
     public RestaurantDatabase(int id,String name, String address, String description, String tags, Double rating) {
         this.id = id;
         this.name = name;

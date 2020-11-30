@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -17,6 +20,9 @@ public class RestaurantActivity extends AppCompatActivity {
     ListView listViewRestaurant;
     RestaurantAdapter adapter;
     public static final String TABLE_NAME = "restaurants";
+    EditText editTextSearch;
+    List<RestaurantDatabase> filtered = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +34,34 @@ public class RestaurantActivity extends AppCompatActivity {
 
         mDatabase = openOrCreateDatabase(MainActivity.DATABASE_NAME, MODE_PRIVATE, null);
 
+        editTextSearch = (EditText)findViewById(R.id.search_box);
+
         //this method will display the Restaurants in the list
         showRestaurantsFromDatabase();
+
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    adapter.searchRest(s.toString(),filtered);
+                } else {
+                    adapter.showOriginal(filtered);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+            }
+        });
+
 
     }
 
@@ -57,7 +89,9 @@ public class RestaurantActivity extends AppCompatActivity {
         cursorRestaurants.close();
 
         //creating the adapter object
-        adapter = new RestaurantAdapter(this, R.layout.list_layout_restaurant, restaurantList,mDatabase);
+
+ filtered.addAll(restaurantList);
+        adapter = new RestaurantAdapter(this, R.layout.list_layout_restaurant, restaurantList,restaurantList,mDatabase);
 
         //adding the adapter to listview
         listViewRestaurant.setAdapter(adapter);

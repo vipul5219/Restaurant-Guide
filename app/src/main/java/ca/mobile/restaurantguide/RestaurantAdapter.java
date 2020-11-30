@@ -19,23 +19,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
     Context mCtx;
     int listLayoutRes;
     List<RestaurantDatabase> restaurantList;
+    List<RestaurantDatabase> originalRestaurantList;
     SQLiteDatabase mDatabase;
 
     public static final String TABLE_NAME = "restaurants";
 
-    public RestaurantAdapter(Context mCtx, int listLayoutRes, List<RestaurantDatabase> restaurantList, SQLiteDatabase mDatabase) {
+    public RestaurantAdapter(Context mCtx, int listLayoutRes, List<RestaurantDatabase> restaurantList,List<RestaurantDatabase> originalRestaurantList ,SQLiteDatabase mDatabase) {
         super(mCtx, listLayoutRes, restaurantList);
 
         this.mCtx = mCtx;
         this.listLayoutRes = listLayoutRes;
         this.restaurantList = restaurantList;
         this.mDatabase = mDatabase;
+        this.originalRestaurantList = restaurantList;
+
+
     }
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -237,6 +242,31 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
             } while (cursorRestaurants.moveToNext());
         }
         cursorRestaurants.close();
+        notifyDataSetChanged();
+    }
+
+    public void searchRest(String query,List<RestaurantDatabase> list){
+
+        if (!query.isEmpty()){
+            List<RestaurantDatabase> filtered = new ArrayList<>();
+            for (int i =0; i<list.size();i++)
+            {
+                if (list.get(i).name.contains(query) || (list.get(i).address.contains(query) )){
+                    filtered.add(list.get(i));
+            }
+
+            }
+            if (filtered!=null && filtered.size()>0) {
+                restaurantList.clear();
+                restaurantList.addAll(filtered);
+                notifyDataSetChanged();
+            }
+            }
+    }
+
+    public void showOriginal(List<RestaurantDatabase> filtered){
+        restaurantList.clear();
+        restaurantList.addAll(filtered);
         notifyDataSetChanged();
     }
 }
