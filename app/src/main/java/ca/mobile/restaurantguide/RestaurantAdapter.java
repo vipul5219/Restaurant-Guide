@@ -6,6 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
     Context mCtx;
@@ -31,7 +39,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
 
     public static final String TABLE_NAME = "restaurants";
 
-    public RestaurantAdapter(Context mCtx, int listLayoutRes, List<RestaurantDatabase> restaurantList,List<RestaurantDatabase> originalRestaurantList ,SQLiteDatabase mDatabase) {
+    public RestaurantAdapter(Context mCtx, int listLayoutRes, List<RestaurantDatabase> restaurantList, List<RestaurantDatabase> originalRestaurantList, SQLiteDatabase mDatabase) {
         super(mCtx, listLayoutRes, restaurantList);
 
         this.mCtx = mCtx;
@@ -48,7 +56,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
         View view = inflater.inflate(listLayoutRes, null);
 
         //getting Restaurants of the specified position
-       final RestaurantDatabase restaurant = restaurantList.get(position);
+        final RestaurantDatabase restaurant = restaurantList.get(position);
 
         //getting views
         TextView textViewName = view.findViewById(R.id.textViewName);
@@ -137,7 +145,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
                         }
 
 
-                        if(inputsAreCorrect(name,address,description,tags,rating)) {
+                        if (inputsAreCorrect(name, address, description, tags, rating)) {
                             String sql = "UPDATE TABLE_NAME \n" +
                                     "SET name = ?, \n" +
                                     "description = ?, \n" +
@@ -182,8 +190,19 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(mCtx, Map.class);
-                mCtx.startActivity(myIntent);
+                LatLng latLng = getLocationFromAddress(mCtx, restaurant.getAddress());
+                double sourceLatitude = RestaurantActivity.Latitude;
+                double sourceLongitude = RestaurantActivity.Longitude;
+                double destinationLatitude = latLng == null ? 0.0 : latLng.latitude;
+                double destinationLongitude = latLng == null ? 0.0 : latLng.longitude;
+                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?saddr=%f,%f(%s)&daddr=%f,%f (%s)",
+                        sourceLatitude, sourceLongitude, "Home Sweet Home", destinationLatitude, destinationLongitude, "Where the party is at");
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                mCtx.startActivity(intent);
+
+//                Intent myIntent = new Intent(mCtx, Map.class);
+//                mCtx.startActivity(myIntent);
 
             }
         });
@@ -192,16 +211,16 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(mCtx, Share.class);
-                String Desc,addrs,name;
+                String Desc, addrs, name;
                 String rate;
-                Desc  = restaurant.getDescription();
+                Desc = restaurant.getDescription();
                 addrs = restaurant.getAddress();
                 name = restaurant.getName();
                 rate = String.valueOf(restaurant.getRating());
-                myIntent.putExtra("resDetails",Desc);
-                myIntent.putExtra("name",name);
-                myIntent.putExtra("rate",rate);
-                myIntent.putExtra("resAddrs",addrs);
+                myIntent.putExtra("resDetails", Desc);
+                myIntent.putExtra("name", name);
+                myIntent.putExtra("rate", rate);
+                myIntent.putExtra("resAddrs", addrs);
                 mCtx.startActivity(myIntent);
             }
         });
@@ -213,14 +232,10 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
         if (name.isEmpty() || address.isEmpty() || description.isEmpty() || tags.isEmpty()) {
             Toast.makeText(mCtx, "Please Enter Values!!!!", Toast.LENGTH_LONG).show();
             return false;
-        }
-         else if( rating > 5)
-         {
-             Toast.makeText(mCtx, "Rating can't be more than 5!!!!", Toast.LENGTH_LONG).show();
-             return false;
-         }
-          else
-              {
+        } else if (rating > 5) {
+            Toast.makeText(mCtx, "Rating can't be more than 5!!!!", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
             return true;
         }
     }
@@ -245,29 +260,53 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantDatabase> {
         notifyDataSetChanged();
     }
 
-    public void searchRest(String query,List<RestaurantDatabase> list){
+    public void searchRest(String query, List<RestaurantDatabase> list) {
 
-        if (!query.isEmpty()){
+        if (!query.isEmpty()) {
             List<RestaurantDatabase> filtered = new ArrayList<>();
-            for (int i =0; i<list.size();i++)
-            {
-                if (list.get(i).name.contains(query) || (list.get(i).address.contains(query) )){
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).name.contains(query) || (list.get(i).address.contains(query))) {
                     filtered.add(list.get(i));
-            }
+                }
 
             }
-            if (filtered!=null && filtered.size()>0) {
+            if (filtered != null && filtered.size() > 0) {
                 restaurantList.clear();
                 restaurantList.addAll(filtered);
                 notifyDataSetChanged();
             }
-            }
+        }
     }
 
-    public void showOriginal(List<RestaurantDatabase> filtered){
+    public void showOriginal(List<RestaurantDatabase> filtered) {
         restaurantList.clear();
         restaurantList.addAll(filtered);
         notifyDataSetChanged();
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            Log.d("theLocation", "getLocationFromAddress: getLatitude: " + location.getLatitude() + " getLongitude" + location.getLongitude());
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 }
 
