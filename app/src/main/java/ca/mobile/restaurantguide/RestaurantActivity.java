@@ -65,6 +65,12 @@ public class RestaurantActivity extends AppCompatActivity {
 
         listViewRestaurant = findViewById(R.id.listViewRestaurants);
         restaurantList = new ArrayList<>();
+        restaurantList.add(new RestaurantDatabase(1,"Rajvi","Mansa","Veg","Good",4.5));
+        restaurantList.add(new RestaurantDatabase(2,"McDonald's","1185 Dupont Street","Fast Food","Good Service",4.8));
+        restaurantList.add(new RestaurantDatabase(3,"Jack & Astor","Gerrad Street","Non-Veg","Fine Place",4.3));
+        restaurantList.add(new RestaurantDatabase(4,"Hakka Legend","Markham","Non-Veg","Good Food",4.6  ));
+
+
 
         mDatabase = openOrCreateDatabase(MainActivity.DATABASE_NAME, MODE_PRIVATE, null);
 

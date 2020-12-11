@@ -18,8 +18,8 @@ public class Share extends AppCompatActivity {
         Button shareButton = findViewById(R.id.shareButton);
 
         final TextView shareDescription = findViewById(R.id.shareDescription);
-        final TextView shareAddress = findViewById(R.id.shareAddress);
         final TextView shareName = findViewById(R.id.shareName);
+        final TextView shareRatings = findViewById(R.id.shareRatings);
 
 
         Intent intent = getIntent();
@@ -29,8 +29,8 @@ public class Share extends AppCompatActivity {
         final String rate = intent.getStringExtra("rate");
 
         shareDescription.setText(desc);
-        shareAddress.setText(addr);
         shareName.setText(name);
+        shareRatings.setText(rate);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,8 +41,6 @@ public class Share extends AppCompatActivity {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, "Name: "+name+"\nAddress: "+addr+"\nDescription: "+desc+"\nRatings: "+rate);
                 startActivity(Intent.createChooser(intent, "Share"));
-
-
             }
         });
     }
